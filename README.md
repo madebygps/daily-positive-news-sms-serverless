@@ -103,9 +103,9 @@ You will also see it in your [Twilio SMS dashboard](https://www.twilio.com/conso
 
 [Here is a written tutorial on how to Publish a Function to Azure](https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-function-vs-code?pivots=programming-language-csharp#publish-the-project-to-azure)
 
-[My Youtube video also shows how to do this.](https://youtu.be/6RruTysrm58)
+[My Youtube video also shows how to do this.](https://youtu.be/6RruTysrm58?t=435)
 
-Please make sure to remove RunOnStartUp in the trigger or set to false. See [here](#what-is-RunOnStartUp?) and this [Microsoft doc](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-timer?tabs=csharp#configuration)
+Please make sure to remove RunOnStartUp in the trigger or set to false. See [Microsoft doc](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-timer?tabs=csharp#configuration)
 
 # ⏰ Change what time the app runs
 
