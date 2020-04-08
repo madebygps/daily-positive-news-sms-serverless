@@ -5,7 +5,9 @@
     <RootNamespace>daily_positive_news_sms_serverless</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Azure.AI.TextAnalytics" Version="1.0.0-preview.3" />
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.3" />
+    <PackageReference Include="Twilio" Version="5.39.0" />
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">

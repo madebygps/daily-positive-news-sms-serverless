@@ -16,7 +16,7 @@ You will need:
 
 These should be included in the project when you clone it, however if there is some error, you can reinstall them.
 
-## [Twilio](https://www.twilio.com/docs/sms/quickstart/csharp-dotnet-core])
+### [Twilio](https://www.twilio.com/docs/sms/quickstart/csharp-dotnet-core])
 
 [Install via .NET CLI](https://docs.microsoft.com/en-us/nuget/consume-packages/install-use-packages-dotnet-cli)
 ```shell
@@ -28,7 +28,7 @@ using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 ```
 
-## [TextAnalytics v3 preview](https://www.nuget.org/packages/Azure.AI.TextAnalytics/1.0.0-preview.3)
+### [TextAnalytics v3 preview](https://www.nuget.org/packages/Azure.AI.TextAnalytics/1.0.0-preview.3)
 
 [Install via .NET CLI](https://docs.microsoft.com/en-us/nuget/consume-packages/install-use-packages-dotnet-cli)
 ```shell
@@ -40,7 +40,9 @@ using Azure.AI.TextAnalytics;
 ```
 # How to setup local.settings.json
 
-I've excluded my local.settings.json file for obvious reasons. Make sure to include these records in there once you have them. You should have set these up in the setup API keys and credentials step.
+I've excluded my local.settings.json file for obvious reasons. Make sure to include these records in there once you have them. You should have set [these up in the setup API keys and credentials step.](#Setup-API-keys-and-credentials)
+
+[Microsoft timezone documentation](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-vista/cc749073(v=ws.10)?WT.mc_id=personal-blog-marouill#time-zones)
 
 ```json
 {
@@ -55,16 +57,25 @@ I've excluded my local.settings.json file for obvious reasons. Make sure to incl
     "NewsApiKey":"<replace>",
     "TwilioPhoneNumber":"<replace>",
     "MyPhoneNumber":"<replace_with_number_you_ant_to_send_sms_to>",
-    "WEBSITE_TIME_ZONE":""
+    "WEBSITE_TIME_ZONE":"<replace_with_your_timezone"
   }
 }
 ```
 
-# How to execute
+# How to execute locally
 
 In VS code, select the run Tab on the left, then hit the Play button on the top.
 
 ![How to run](howtorun.png "How to run")
+
+## What is RunOnStartUp?
+The app will run once since the 
+```csharp
+RunOnStartup=true
+```
+is set to true. Before deploying to production, remove this, according to Microsoft:
+
+[If true, the function is invoked when the runtime starts. For example, the runtime starts when the function app wakes up after going idle due to inactivity. when the function app restarts due to function changes, and when the function app scales out. So runOnStartup should rarely if ever be set to true, especially in production.](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-timer?tabs=csharp#configuration)
 
 # Demo
 
@@ -80,10 +91,41 @@ You will also see it in your [Twilio SMS dashboard](https://www.twilio.com/conso
 
 ![Twilio dash](twiliodash.png "Twilio dash")
 
+# How to deploy to Azure
 
+[Here is a written tutorial on how to Publish a Function to Azure](https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-function-vs-code?pivots=programming-language-csharp#publish-the-project-to-azure)
+
+[My Youtube video also shows how to do this.](linktoytvideo.com)
+
+Please make sure to remove RunOnStartUp in the trigger or set to false. See [here](#what-is-RunOnStartUp?) and this [Microsoft doc](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-timer?tabs=csharp#configuration)
+
+# Change what time the app runs
+
+This line here has the cron expression
+
+```csharp
+public static void Run([TimerTrigger("0 30 6 * * *", RunOnStartup=true)]TimerInfo myTimer, ILogger log)
+```
+
+If you would like to change the time, change the expression part, [here are some examples.](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-timer?tabs=csharp#ncrontab-expressions)
+```csharp
+"0 30 6 * * *"
+```
+
+# Fine tune your news feed
+
+You can fine tune the JSON returned from News API with [these parameters](https://newsapi.org/docs/endpoints/everything) simply add/remove/edit the variables of the newsAPIEndpointURL
+```csharp
+// NEWS API Search parameters and URL
+string searchKeyword = "Covid";
+string sortBy = "publishedAt";
+string pageSize = "50";
+string searchLanguage = "en";
+var newAPIEndpointURL = $"https://newsapi.org/v2/everything?sortBy={sortBy}&pageSize={pageSize}&language={searchLanguage}&q={searchKeyword}&apiKey={newsApiKey}";
+```
 # Known issues and areas of improvement
 
-- You can fine tune the JSON returned from News API 
-```json
-```
+- Some of the stories sent are not necessarily positive, but since they contain words like "tests positive" they are returned as positive sentiment.
+
+- I haven't been programming for very long so I know I might not be following best practices (OOP design and error handling), I will try to improve that as I get more practice and experience. 
 
