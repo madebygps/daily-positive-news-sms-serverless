@@ -1,5 +1,13 @@
-# daily-positive-news-sms-serverless
-A serverless app that sends via text message a positive news story about COVID-19.
+![My logo](logo.png "My logo")
+
+# About
+
+I built a serverless application that sends me a positive news story related to COVID-19 every morning before I wake up, via text message.
+
+During this ongoing pandemic, my problem has been too much news consumption, and a lot of it impacts me negatively. I figured now would be an excellent opportunity to create something that brings a little positivity into my day.
+
+I have this terrible habit of checking my phone notifications while I'm brushing my teeth, so why not have something to read that makes me feel hopeful.
+
 
 # How to setup code environment
 
