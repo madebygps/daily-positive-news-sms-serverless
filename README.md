@@ -48,9 +48,9 @@ using Azure.AI.TextAnalytics;
 ```
 # 🔑 How to setup local.settings.json
 
-I've excluded my local.settings.json file for obvious reasons. Make sure to include these records in there once you have them. You should have set [these up in the setup API keys and credentials step.](#Setup-API-keys-and-credentials)
+I've excluded my local.settings.json file for obvious reasons. Make sure to include these records in there once you have them.
 
-[Microsoft timezone documentation](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-vista/cc749073(v=ws.10)?WT.mc_id=personal-blog-marouill#time-zones)
+[Set your timezone correctly according to Microsoft timezone documentation](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-vista/cc749073(v=ws.10)?WT.mc_id=personal-blog-marouill#time-zones)
 
 ```json
 {
@@ -81,9 +81,9 @@ The app will run once since the
 ```csharp
 RunOnStartup=true
 ```
-is set to true. Before deploying to production, remove this, according to Microsoft:
+is set to true. Before deploying to production, remove this, [according to Microsoft:](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-timer?tabs=csharp#configuration)
 
-[If true, the function is invoked when the runtime starts. For example, the runtime starts when the function app wakes up after going idle due to inactivity. when the function app restarts due to function changes, and when the function app scales out. So runOnStartup should rarely if ever be set to true, especially in production.](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-timer?tabs=csharp#configuration)
+"If true, the function is invoked when the runtime starts. For example, the runtime starts when the function app wakes up after going idle due to inactivity. when the function app restarts due to function changes, and when the function app scales out. So runOnStartup should rarely if ever be set to true, especially in production."
 
 # 📳 Demo
 
@@ -105,7 +105,7 @@ You will also see it in your [Twilio SMS dashboard](https://www.twilio.com/conso
 
 [My Youtube video also shows how to do this.](https://youtu.be/6RruTysrm58?t=435)
 
-Please make sure to remove RunOnStartUp in the trigger or set to false. See [Microsoft doc](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-timer?tabs=csharp#configuration)
+Make sure to remove RunOnStartUp in the trigger or set to false. See [Microsoft doc](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-timer?tabs=csharp#configuration)
 
 # ⏰ Change what time the app runs
 
