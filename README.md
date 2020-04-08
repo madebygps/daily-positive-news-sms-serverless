@@ -103,7 +103,7 @@ You will also see it in your [Twilio SMS dashboard](https://www.twilio.com/conso
 
 [Here is a written tutorial on how to Publish a Function to Azure](https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-function-vs-code?pivots=programming-language-csharp#publish-the-project-to-azure)
 
-[My Youtube video also shows how to do this.](linktoytvideo.com)
+[My Youtube video also shows how to do this.](https://youtu.be/6RruTysrm58)
 
 Please make sure to remove RunOnStartUp in the trigger or set to false. See [here](#what-is-RunOnStartUp?) and this [Microsoft doc](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-timer?tabs=csharp#configuration)
 
@@ -140,5 +140,5 @@ var newAPIEndpointURL = $"https://newsapi.org/v2/everything?sortBy={sortBy}&page
 # 💙 Thanks to 
 
 - The amazing community at [Dev.to](https://dev.to) and [Twilio](https://twilio.com). Here is the [link to the hackathon post](https://dev.to/devteam/announcing-the-twilio-hackathon-on-dev-2lh8) if you'd also like to participate (Do it 😊).
-- Powered by [newsapi.org](NewsApi.org)
+- Powered by [newsapi.org](https://NewsApi.org)
 - Twilio for providing credits to work on this project
