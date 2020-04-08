@@ -139,6 +139,6 @@ var newAPIEndpointURL = $"https://newsapi.org/v2/everything?sortBy={sortBy}&page
 
 # 💙 Thanks to 
 
-- The amazing community at [Dev.to](dev.to) and [Twilio](twilio.com). Here is the [link to the hackathon post](https://dev.to/devteam/announcing-the-twilio-hackathon-on-dev-2lh8) if you'd also like to participate (Do it 😊).
+- The amazing community at [Dev.to](https://dev.to) and [Twilio](https://twilio.com). Here is the [link to the hackathon post](https://dev.to/devteam/announcing-the-twilio-hackathon-on-dev-2lh8) if you'd also like to participate (Do it 😊).
 - Powered by [newsapi.org](NewsApi.org)
 - Twilio for providing credits to work on thie project
