@@ -13,7 +13,7 @@ namespace MadeByGPS.Function
     public static class PositiveNewsTimerTrigger
     {
         [FunctionName("PositiveNewsTimerTrigger")]
-        public static void Run([TimerTrigger("0 30 6 * * *", RunOnStartup=true)]TimerInfo myTimer, ILogger log)
+        public static void Run([TimerTrigger("0 30 6 * * *")]TimerInfo myTimer, ILogger log)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
 

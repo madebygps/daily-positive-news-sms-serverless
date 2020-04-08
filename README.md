@@ -120,7 +120,7 @@ If you would like to change the time, change the expression part, [here are some
 "0 30 6 * * *"
 ```
 
-# 🗞 Fine tune your news feed
+# 🗞 Fine-tune your news feed
 
 You can fine tune the JSON returned from News API with [these parameters](https://newsapi.org/docs/endpoints/everything) simply add/remove/edit the variables of the newsAPIEndpointURL
 ```csharp
@@ -141,4 +141,4 @@ var newAPIEndpointURL = $"https://newsapi.org/v2/everything?sortBy={sortBy}&page
 
 - The amazing community at [Dev.to](https://dev.to) and [Twilio](https://twilio.com). Here is the [link to the hackathon post](https://dev.to/devteam/announcing-the-twilio-hackathon-on-dev-2lh8) if you'd also like to participate (Do it 😊).
 - Powered by [newsapi.org](NewsApi.org)
-- Twilio for providing credits to work on thie project
+- Twilio for providing credits to work on this project
