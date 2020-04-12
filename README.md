@@ -124,9 +124,13 @@ If you would like to change the time, change the expression part, [here are some
 
 Since I am in the US, I can send images to my phone number, [more info here](https://www.twilio.com/docs/sms/tutorials/how-to-send-sms-messages-csharp?code-sample=code-send-a-message-with-an-image-url&code-language=C%23&code-sdk-version=5.x), that is done in the send message method
 
+
 ```csharp
 static void SendMessage (string fromNumber, string toNumber, string articleUrl, string articleTitle, string imageUrl )
 ```
+
+![MMS](mms.png "MMS")
+
 Feel free to remove this if you are outside of US or Canada.
 
 # 🗞 Fine-tune your news feed
