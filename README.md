@@ -129,9 +129,9 @@ Since I am in the US, I can send images to my phone number, [more info here](htt
 static void SendMessage (string fromNumber, string toNumber, string articleUrl, string articleTitle, string imageUrl )
 ```
 
-![MMS](mms.png "MMS")
-
 Feel free to remove this if you are outside of US or Canada.
+
+If the image has no article URL, it will default to a [stock photo I got from Unsplash](https://unsplash.com/photos/WYd_PkCa1BY)
 
 # 🗞 Fine-tune your news feed
 
@@ -155,3 +155,4 @@ var newAPIEndpointURL = $"https://newsapi.org/v2/everything?sortBy={sortBy}&page
 - The amazing community at [Dev.to](https://dev.to) and [Twilio](https://twilio.com). Here is the [link to the hackathon post](https://dev.to/devteam/announcing-the-twilio-hackathon-on-dev-2lh8) if you'd also like to participate (Do it 😊).
 - Powered by [newsapi.org](https://NewsApi.org)
 - Twilio for providing credits to work on this project
+- Stock news paper photo from [AbsolutVision](https://unsplash.com/photos/WYd_PkCa1BY)

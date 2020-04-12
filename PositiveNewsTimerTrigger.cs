@@ -26,11 +26,14 @@ namespace MadeByGPS.Function
             string toNumber = System.Environment.GetEnvironmentVariable ("MyPhoneNumber");
             TextAnalyticsApiKeyCredential textAnalyticsCredentials = new TextAnalyticsApiKeyCredential (System.Environment.GetEnvironmentVariable ("TextAnalyticsApiKeyCredential"));
             Uri textAnalyticsEndpoint = new Uri (System.Environment.GetEnvironmentVariable ("CognitiveServicesEndpoint"));
-
+            
+            // Incase URL of article image is null, we will use this royalty free stock photo.
+            string newspaperImageURL = "https://images.unsplash.com/photo-1504711331083-9c895941bf81?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2550&q=80";
+            
             // NEWS API Search parameters and URL
             string searchKeyword = "Covid";
             string sortBy = "publishedAt";
-            string pageSize = "50";
+            string pageSize = "100";
             string searchLanguage = "en";
             var newAPIEndpointURL = $"https://newsapi.org/v2/everything?sortBy={sortBy}&pageSize={pageSize}&language={searchLanguage}&q={searchKeyword}&apiKey={newsApiKey}";
 
@@ -61,6 +64,7 @@ namespace MadeByGPS.Function
                     if (sentimentLabel.Equals ("Positive")) {
 
                         log.LogInformation ("Found positive story: " + article.url);
+                        article.urlToImage = !String.IsNullOrEmpty(article.urlToImage) ? article.urlToImage : newspaperImageURL;
                         SendMessage (fromNumber, toNumber, article.url, article.title, article.urlToImage);
                         break;
                     }
@@ -95,7 +99,7 @@ namespace MadeByGPS.Function
 
             var message = MessageResource.Create (
 
-                body: "Here is your Covid positive news story of the day 😊: \n\n" + articleUrl + "\n\n" + articleTitle,
+                body: articleTitle + "\n\n" + articleUrl ,
                 
                 from : new Twilio.Types.PhoneNumber (fromNumber),
                 mediaUrl: mediaUrl,
