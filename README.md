@@ -17,7 +17,7 @@ I have this terrible habit of checking my phone notifications while I'm brushing
 
 You will need:
 - [TwilioSid, TwilioAuthToken, TwilioPhoneNumber](https://www.twilio.com/docs/usage/tutorials/how-to-use-your-free-trial-account)
-- [Azure account, CognitiveServicesEndpoint and TextAnalyticsApiKeyCredential](https://docs.microsoft.com/en-us/azure/cognitive-services/text-analytics/quickstarts/text-analytics-sdk?tabs=version-3&pivots=programming-language-csharp)
+- [Azure account, CognitiveServicesEndpoint and TextAnalyticsApiKeyCredential](https://docs.microsoft.com/en-us/azure/cognitive-services/text-analytics/quickstarts/text-analytics-sdk?tabs=version-3&pivots=programming-language-csharp) Use the Free - Web/Container plan, it contains the features we need, at a free tier, [more info here](https://azure.microsoft.com/en-us/pricing/details/cognitive-services/text-analytics/)
 - [NewsApiKey](https://newsapi.org/docs/get-started)
 
 # 📦 Packages used
@@ -119,6 +119,15 @@ If you would like to change the time, change the expression part, [here are some
 ```csharp
 "0 30 6 * * *"
 ```
+
+# MMS capabilities
+
+Since I am in the US, I can send images to my phone number, [more info here](https://www.twilio.com/docs/sms/tutorials/how-to-send-sms-messages-csharp?code-sample=code-send-a-message-with-an-image-url&code-language=C%23&code-sdk-version=5.x), that is done in the send message method
+
+```csharp
+static void SendMessage (string fromNumber, string toNumber, string articleUrl, string articleTitle, string imageUrl )
+```
+Feel free to remove this if you are outside of US or Canada.
 
 # 🗞 Fine-tune your news feed
 

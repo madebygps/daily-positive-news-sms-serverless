@@ -7,13 +7,14 @@ using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 using System.Net;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace MadeByGPS.Function
 {
     public static class PositiveNewsTimerTrigger
     {
         [FunctionName("PositiveNewsTimerTrigger")]
-        public static void Run([TimerTrigger("0 30 6 * * *")]TimerInfo myTimer, ILogger log)
+        public static void Run([TimerTrigger("0 30 6 * * *", RunOnStartup = true)]TimerInfo myTimer, ILogger log)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
 
@@ -60,7 +61,7 @@ namespace MadeByGPS.Function
                     if (sentimentLabel.Equals ("Positive")) {
 
                         log.LogInformation ("Found positive story: " + article.url);
-                        SendMessage (fromNumber, toNumber, article.url, article.title);
+                        SendMessage (fromNumber, toNumber, article.url, article.title, article.urlToImage);
                         break;
                     }
                 }
@@ -86,12 +87,18 @@ namespace MadeByGPS.Function
 
         }
 
-        static void SendMessage (string fromNumber, string toNumber, string articleUrl, string articleTitle) {
+        static void SendMessage (string fromNumber, string toNumber, string articleUrl, string articleTitle, string imageUrl ){
+
+            var mediaUrl = new [] {
+            new Uri(imageUrl)
+        }.ToList();
 
             var message = MessageResource.Create (
 
-                body: "Here is your Covid positive news story of the day 😊: \n\n" + articleUrl + "\n" + articleTitle,
+                body: "Here is your Covid positive news story of the day 😊: \n\n" + articleUrl + "\n\n" + articleTitle,
+                
                 from : new Twilio.Types.PhoneNumber (fromNumber),
+                mediaUrl: mediaUrl,
                 to : new Twilio.Types.PhoneNumber (toNumber)
 
             );
