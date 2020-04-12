@@ -138,11 +138,14 @@ If the image has no article URL, it will default to a [stock photo I got from Un
 You can fine tune the JSON returned from News API with [these parameters](https://newsapi.org/docs/endpoints/everything) simply add/remove/edit the variables of the newsAPIEndpointURL
 ```csharp
 // NEWS API Search parameters and URL
+
 string searchKeyword = "Covid";
-string sortBy = "publishedAt";
-string pageSize = "50";
+string sortBy = "relevancy";
+string pageSize = "100";
 string searchLanguage = "en";
-var newAPIEndpointURL = $"https://newsapi.org/v2/everything?sortBy={sortBy}&pageSize={pageSize}&language={searchLanguage}&q={searchKeyword}&apiKey={newsApiKey}";
+string fromDate = DateTime.Today.AddDays (-1).ToString ("yyyy-MM-dd");
+var newAPIEndpointURL = $"https://newsapi.org/v2/everything?from={fromDate}&sortBy={sortBy}&pageSize={pageSize}&language={searchLanguage}&q={searchKeyword}&apiKey={newsApiKey}";
+            
 ```
 # 👷🏽‍♀️ Known issues and areas of improvement
 

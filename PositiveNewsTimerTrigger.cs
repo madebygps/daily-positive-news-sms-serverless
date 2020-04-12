@@ -1,22 +1,19 @@
 using System;
+using System.Linq;
+using System.Net;
+using Azure.AI.TextAnalytics;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
-using Azure.AI.TextAnalytics;
+using Newtonsoft.Json;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
-using System.Net;
-using Newtonsoft.Json;
-using System.Linq;
 
-namespace MadeByGPS.Function
-{
-    public static class PositiveNewsTimerTrigger
-    {
-        [FunctionName("PositiveNewsTimerTrigger")]
-        public static void Run([TimerTrigger("0 30 6 * * *", RunOnStartup = true)]TimerInfo myTimer, ILogger log)
-        {
-            log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
+namespace MadeByGPS.Function {
+    public static class PositiveNewsTimerTrigger {
+        [FunctionName ("PositiveNewsTimerTrigger")]
+        public static void Run ([TimerTrigger ("0 30 6 * * *")] TimerInfo myTimer, ILogger log) {
+            log.LogInformation ($"C# Timer trigger function executed at: {DateTime.Now}");
 
             // Initialize variables from local.settings.json
             string twilioSid = System.Environment.GetEnvironmentVariable ("TwilioSid");
@@ -26,18 +23,21 @@ namespace MadeByGPS.Function
             string toNumber = System.Environment.GetEnvironmentVariable ("MyPhoneNumber");
             TextAnalyticsApiKeyCredential textAnalyticsCredentials = new TextAnalyticsApiKeyCredential (System.Environment.GetEnvironmentVariable ("TextAnalyticsApiKeyCredential"));
             Uri textAnalyticsEndpoint = new Uri (System.Environment.GetEnvironmentVariable ("CognitiveServicesEndpoint"));
-            
+
             // Incase URL of article image is null, we will use this royalty free stock photo.
             string newspaperImageURL = "https://images.unsplash.com/photo-1504711331083-9c895941bf81?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2550&q=80";
-            
+
             // NEWS API Search parameters and URL
             string searchKeyword = "Covid";
-            string sortBy = "publishedAt";
+            string sortBy = "relevancy";
             string pageSize = "100";
             string searchLanguage = "en";
-            var newAPIEndpointURL = $"https://newsapi.org/v2/everything?sortBy={sortBy}&pageSize={pageSize}&language={searchLanguage}&q={searchKeyword}&apiKey={newsApiKey}";
+            string fromDate = DateTime.Today.AddDays (-1).ToString ("yyyy-MM-dd");
+            log.LogInformation (fromDate);
 
-             // 1. Get json
+            var newAPIEndpointURL = $"https://newsapi.org/v2/everything?from={fromDate}&sortBy={sortBy}&pageSize={pageSize}&language={searchLanguage}&q={searchKeyword}&apiKey={newsApiKey}";
+            log.LogInformation (newAPIEndpointURL);
+            // 1. Get json
 
             string jsonFromAPI = GetNewsFromAPI (newAPIEndpointURL);
 
@@ -64,19 +64,17 @@ namespace MadeByGPS.Function
                     if (sentimentLabel.Equals ("Positive")) {
 
                         log.LogInformation ("Found positive story: " + article.url);
-                        article.urlToImage = !String.IsNullOrEmpty(article.urlToImage) ? article.urlToImage : newspaperImageURL;
+                        article.urlToImage = !String.IsNullOrEmpty (article.urlToImage) ? article.urlToImage : newspaperImageURL;
                         SendMessage (fromNumber, toNumber, article.url, article.title, article.urlToImage);
                         break;
                     }
                 }
             } else {
                 log.LogInformation ("Error with API call");
-            }      
+            }
 
         }
-    
-    
-    
+
         static string GetNewsFromAPI (string url) {
             string jsonFromAPI = new WebClient ().DownloadString (url);
             return jsonFromAPI;
@@ -91,23 +89,23 @@ namespace MadeByGPS.Function
 
         }
 
-        static void SendMessage (string fromNumber, string toNumber, string articleUrl, string articleTitle, string imageUrl ){
+        static void SendMessage (string fromNumber, string toNumber, string articleUrl, string articleTitle, string imageUrl) {
 
             var mediaUrl = new [] {
-            new Uri(imageUrl)
-        }.ToList();
+                new Uri (imageUrl)
+            }.ToList ();
 
             var message = MessageResource.Create (
 
-                body: articleTitle + "\n\n" + articleUrl ,
-                
-                from : new Twilio.Types.PhoneNumber (fromNumber),
+                body: articleTitle + "\n\n" + articleUrl,
+
+                from: new Twilio.Types.PhoneNumber (fromNumber),
                 mediaUrl: mediaUrl,
-                to : new Twilio.Types.PhoneNumber (toNumber)
+                to: new Twilio.Types.PhoneNumber (toNumber)
 
             );
 
         }
-    
+
     }
 }
