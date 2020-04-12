@@ -120,7 +120,7 @@ If you would like to change the time, change the expression part, [here are some
 "0 30 6 * * *"
 ```
 
-# MMS capabilities
+# 🖼 MMS capabilities
 
 Since I am in the US, I can send images to my phone number, [more info here](https://www.twilio.com/docs/sms/tutorials/how-to-send-sms-messages-csharp?code-sample=code-send-a-message-with-an-image-url&code-language=C%23&code-sdk-version=5.x), that is done in the send message method
 
