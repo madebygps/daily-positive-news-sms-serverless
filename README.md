@@ -1,4 +1,4 @@
-![My logo](logo.png "My logo")
+![My logo](pngs/logo.png "My logo")
 
 # About
 
@@ -74,7 +74,7 @@ I've excluded my local.settings.json file for obvious reasons. Make sure to incl
 
 In VS code, select the run Tab on the left, then hit the Play button on the top.
 
-![How to run](howtorun.png "How to run")
+![How to run](pngs/howtorun.png "How to run")
 
 ## What is RunOnStartUp?
 The app will run once since the 
@@ -89,15 +89,15 @@ is set to true. Before deploying to production, remove this, [according to Micro
 
 You will get a text to the number you put into your local.settings.json
 
-![SMS text](smstext.png "SMS text")
+![SMS text](pngs/msg3.png "SMS text")
 
-In the VS code console output you will also see the story it sent you.
+In the VS code console output you will also see the story URL.
 
-![Console output](console.png "Console output")
+![Console output](pngs/console.png "Console output")
 
-You will also see it in your [Twilio SMS dashboard](https://www.twilio.com/console/sms)
+You will also see it in your [Twilio SMS dashboard](pngs/https://www.twilio.com/console/sms)
 
-![Twilio dash](twiliodash.png "Twilio dash")
+![Twilio dash](pngs/twiliodash.png "Twilio dash")
 
 # 🚀 How to deploy to Azure
 
@@ -149,7 +149,7 @@ var newAPIEndpointURL = $"https://newsapi.org/v2/everything?from={fromDate}&sort
 ```
 # 👷🏽‍♀️ Known issues and areas of improvement
 
-- Some of the stories sent are not necessarily positive, but since they contain words like "tests positive" they are returned as positive sentiment.
+- Some of the stories sent are not necessarily positive, but since they contain words like "tests positive" or  "better" they are returned as positive sentiment. Tweaks to the sentiment labeling method and exploring more of text analytics could better this.
 
 - I haven't been programming for very long so I know I might not be following best practices (OOP design and error handling), I will try to improve that as I get more practice and experience. 
 
@@ -159,3 +159,10 @@ var newAPIEndpointURL = $"https://newsapi.org/v2/everything?from={fromDate}&sort
 - Powered by [newsapi.org](https://NewsApi.org)
 - Twilio for providing credits to work on this project
 - Stock news paper photo from [AbsolutVision](https://unsplash.com/photos/WYd_PkCa1BY)
+
+# More examples
+
+![SMS text](pngs/msg1.png "SMS text")
+![SMS text](pngs/msg2.png "SMS text")
+![SMS text](pngs/msg3.png "SMS text")
+![SMS text](pngs/msg4.png "SMS text")
