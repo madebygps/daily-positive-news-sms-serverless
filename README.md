@@ -160,7 +160,7 @@ var newAPIEndpointURL = $"https://newsapi.org/v2/everything?from={fromDate}&sort
 - Twilio for providing credits to work on this project
 - Stock news paper photo from [AbsolutVision](https://unsplash.com/photos/WYd_PkCa1BY)
 
-# More examples
+# More SMS examples
 
 ![SMS text](pngs/msg1.png "SMS text")
 ![SMS text](pngs/msg2.png "SMS text")
