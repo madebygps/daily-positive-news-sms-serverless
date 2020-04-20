@@ -151,7 +151,24 @@ var newAPIEndpointURL = $"https://newsapi.org/v2/everything?from={fromDate}&sort
 
 - Some of the stories sent are not necessarily positive, but since they contain words like "tests positive" or  "better" they are returned as positive sentiment. Tweaks to the sentiment labeling method and exploring more of text analytics could better this.
 
-- I haven't been programming for very long so I know I might not be following best practices (OOP design and error handling), I will try to improve that as I get more practice and experience. 
+- I haven't been programming for very long so I know I might not be following best practices (OOP design and error handling), I will try to improve that as I get more practice and experience.
+
+- I was getting this [Twilio error](https://www.twilio.com/docs/api/errors/11751) with certain articles, due to their image size, I implemented a method to check the article image size 
+```csharp
+static double GetMediaFileSize (string imageUrl) {
+            var fileSizeInMegaByte = 0.0;
+            var webRequest = HttpWebRequest.Create (imageUrl);
+            webRequest.Method = "HEAD";
+
+            using (var webResponse = webRequest.GetResponse ()) {
+                var fileSize = webResponse.Headers.Get ("Content-Length");
+                fileSizeInMegaByte = Math.Round (Convert.ToDouble (fileSize) / 1024.0 / 1024.0, 2);
+            }
+
+            return fileSizeInMegaByte;
+        }
+```
+in case the image is larger than 4.9MB, I set the article image to a default image that I know is correctly sized. An improvement here would be to resize the image instead of changing to a default one. 
 
 # 💙 Thanks to 
 
