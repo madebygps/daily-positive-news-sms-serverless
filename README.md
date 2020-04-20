@@ -162,7 +162,5 @@ var newAPIEndpointURL = $"https://newsapi.org/v2/everything?from={fromDate}&sort
 
 # More SMS examples
 
-![SMS text](pngs/msg1.png "SMS text")
-![SMS text](pngs/msg2.png "SMS text")
-![SMS text](pngs/msg3.png "SMS text")
-![SMS text](pngs/msg4.png "SMS text")
+![SMS text](pngs/msg5.png "SMS text")
+![SMS text](pngs/msg6.png "SMS text")

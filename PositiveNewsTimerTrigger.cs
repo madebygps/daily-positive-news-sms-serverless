@@ -12,7 +12,7 @@ using Twilio.Rest.Api.V2010.Account;
 namespace MadeByGPS.Function {
     public static class PositiveNewsTimerTrigger {
         [FunctionName ("PositiveNewsTimerTrigger")]
-        public static void Run ([TimerTrigger ("0 30 6 * * *")] TimerInfo myTimer, ILogger log) {
+        public static void Run ([TimerTrigger ("0 30 6 * * *", RunOnStartup = true)] TimerInfo myTimer, ILogger log) {
             log.LogInformation ($"C# Timer trigger function executed at: {DateTime.Now}");
 
             // Initialize variables from local.settings.json
@@ -33,10 +33,9 @@ namespace MadeByGPS.Function {
             string pageSize = "100";
             string searchLanguage = "en";
             string fromDate = DateTime.Today.AddDays (-1).ToString ("yyyy-MM-dd");
-            log.LogInformation (fromDate);
+            double imageFileSize = 0.0;
 
             var newAPIEndpointURL = $"https://newsapi.org/v2/everything?from={fromDate}&sortBy={sortBy}&pageSize={pageSize}&language={searchLanguage}&q={searchKeyword}&apiKey={newsApiKey}";
-            log.LogInformation (newAPIEndpointURL);
             // 1. Get json
 
             string jsonFromAPI = GetNewsFromAPI (newAPIEndpointURL);
@@ -64,13 +63,30 @@ namespace MadeByGPS.Function {
                     if (sentimentLabel.Equals ("Positive")) {
 
                         log.LogInformation ("Found positive story: " + article.url);
+
+                        // Checks if there is a url for image of article, if there isn't it will default to newspaperImageURL.
                         article.urlToImage = !String.IsNullOrEmpty (article.urlToImage) ? article.urlToImage : newspaperImageURL;
+
+                        // If article image was changes to newspaperImageURL, no need to check size because newspaperImageURL is only 321KB
+                        if (!(article.urlToImage.Equals (newspaperImageURL))) {
+                            // Gets image file size and logs to console.
+                            imageFileSize = GetMediaFileSize (article.urlToImage);
+                            log.LogInformation ("The image size is: " + imageFileSize);
+
+                            // MMS size limit is 5 MB.
+                            if ((imageFileSize > 4.9)) {
+                                article.urlToImage = newspaperImageURL;
+                            }
+
+                        }
+
                         SendMessage (fromNumber, toNumber, article.url, article.title, article.urlToImage);
+
                         break;
                     }
                 }
             } else {
-                log.LogInformation ("Error with API call");
+                log.LogInformation ("Error with NEWS API call");
             }
 
         }
@@ -89,23 +105,37 @@ namespace MadeByGPS.Function {
 
         }
 
+        static double GetMediaFileSize (string imageUrl) {
+            var fileSizeInMegaByte = 0.0;
+            var webRequest = HttpWebRequest.Create (imageUrl);
+            webRequest.Method = "HEAD";
+
+            using (var webResponse = webRequest.GetResponse ()) {
+                var fileSize = webResponse.Headers.Get ("Content-Length");
+                fileSizeInMegaByte = Math.Round (Convert.ToDouble (fileSize) / 1024.0 / 1024.0, 2);
+            }
+
+            return fileSizeInMegaByte;
+        }
+
         static void SendMessage (string fromNumber, string toNumber, string articleUrl, string articleTitle, string imageUrl) {
 
             var mediaUrl = new [] {
                 new Uri (imageUrl)
             }.ToList ();
 
-            var message = MessageResource.Create (
+            try {
 
-                body: articleTitle + "\n\n" + articleUrl,
+                var message = MessageResource.Create (
+                    body: articleTitle + "\n\n" + articleUrl,
+                    from: new Twilio.Types.PhoneNumber (fromNumber),
+                    mediaUrl: mediaUrl,
+                    to: new Twilio.Types.PhoneNumber (toNumber)
+                );
 
-                from: new Twilio.Types.PhoneNumber (fromNumber),
-                mediaUrl: mediaUrl,
-                to: new Twilio.Types.PhoneNumber (toNumber)
+            } catch (Exception ex) {
 
-            );
-
+            }
         }
-
     }
 }
