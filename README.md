@@ -177,7 +177,7 @@ in case the image is larger than 4.9MB, I set the article image to a default ima
 - Twilio for providing credits to work on this project
 - Stock news paper photo from [AbsolutVision](https://unsplash.com/photos/WYd_PkCa1BY)
 
-# More SMS examples
+# More SMS examples!
 
 ![SMS text](pngs/msg5.png "SMS text")
 ![SMS text](pngs/msg6.png "SMS text")
