@@ -181,3 +181,4 @@ in case the image is larger than 4.9MB, I set the article image to a default ima
 
 ![SMS text](pngs/msg5.png "SMS text")
 ![SMS text](pngs/msg6.png "SMS text")
+![SMS text](pngs/msg9.png "SMS text")
